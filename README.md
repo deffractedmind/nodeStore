@@ -3,9 +3,9 @@
 nodeStore is an online node/mysql store with inventory tracking and light weight sales performance metrics.
 
 personas:
-<br>(I)   customer (buyer) - person who performs a product purchase
-<br>(II)  manager - person who can view and add inventory and measure sales performance
-<br>III) supervisor - person who manages department (can add new department), view department sales performance
+<br>   (I)   customer (buyer) - person who performs a product purchase
+<br>   (II)  manager - person who can view and add inventory and measure sales performance
+<br>   (III) supervisor - person who manages department (can add new department), view department sales performance
 
 use cases:
 customer - kicksoff a purchase and then presented by two inputs:
