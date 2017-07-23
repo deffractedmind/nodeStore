@@ -1,0 +1,23 @@
+{
+  "name": "nodeStore",
+  "version": "1.0.0",
+  "description": "nodeStore is an online node/mysql store with inventory tracking and light weight sales performance metrics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deffractedmind/nodeStore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deffractedmind/nodeStore/issues"
+  },
+  "homepage": "https://github.com/deffractedmind/nodeStore#readme",
+  "dependencies": {
+    "console.table": "^0.8.0"
+  }
+}
