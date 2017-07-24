@@ -27,6 +27,31 @@ var connection = mysql.createConnection({
 // foo   10
 // bar   20
 
+function purchase(idBuy) {
+  var query = connection.query('SELECT * FROM products WHERE ?', {
+      id: idBuy
+  }, function(err, results) {
+      var productName = results[0].productName;
+      var quantityInStock = results[0].quantityInStock;
+      var buyPrice = results[0].buyPrice;
+      var buyMessage = 'Please enter quantity to buy, (1 to ' + quantityInStock +'): '
+
+      console.log("Product Name: " + results[0].productName);
+      console.log("Available: " + results[0].quantityInStock);
+      console.log("Price: " + results[0].buyPrice);
+      connection.end();
+
+  console.log(buyMessage);
+  inquirer.prompt([{
+      name: 'quantityToBuy',
+      type: 'input',
+      message: buyMessage
+  }]).then(function(input) {
+    console.log(input.quantityToBuy);
+  })
+  });
+}
+
 function start() {
   inquirer.prompt([{
       name: 'searchType',
@@ -38,58 +63,65 @@ function start() {
       var sType = rawlist.searchType;
       if (sType === 'Product Id') {
         // console.log("product id");
-        inquirer.prompt([{
-            name: 'id',
-            type: 'input',
-            message: 'Please enter the product id you want to buy: '
-        }]).then(function(input) {
-          ////
-            var query = connection.query('SELECT * FROM products WHERE ?', {
-                id: input.id
-            }, function(err, results) {
-                console.log("Product Name: " + results[0].productName);
-                console.log("Available: " + results[0].quantityInStock);
-                console.log("Price: " + results[0].buyPrice);
-                connection.end();
-            });
-          ////
-        })
+// inquirer.prompt([{
+//     name: 'id',
+//     type: 'input',
+//     message: 'Please enter the product id you want to buy: '
+// }]).then(function(input) {
+//   ////
+//     var query = connection.query('SELECT * FROM products WHERE ?', {
+//         id: input.id
+//     }, function(err, results) {
+//         console.log("Product Name: " + results[0].productName);
+//         console.log("Available: " + results[0].quantityInStock);
+//         console.log("Price: " + results[0].buyPrice);
+//         connection.end();
+//     });
+//   ////
+// })
+
       }
       else {
         // console.log("product name");
         inquirer.prompt([{
             name: 'productName',
             type: 'input',
-            message: 'Please enter the product name you want to buy: '
+            message: 'Please enter the product name you want to buy: (partial name is fine) '
         }]).then(function(input) {
           ////
             var arrProducts = [];
-            var query = connection.query("SELECT * FROM products WHERE productName like '%" + input.productName + "%'"
+            var query = connection.query("SELECT id, productName FROM products WHERE productName like '%" + input.productName + "%'"
               , function(err, results) {
-                // console.log(results);
 
-                // var a = ['a', 'b', 'c'];
-                //
+                // for (var i=0; i<results.length; i++) {
+                //   arrProducts[i] = results[i];
+                // }
+                // console.log(arrProducts[0].id, arrProducts[0].productName);
+
                 results.forEach(function(element) {
                     // console.log(element.productName);
-                    arrProducts.push(element.productName);
+                    arrProducts.push(element.id +'::'+element.productName);
 
                 });
-                    console.log(arrProducts);
-
+                //     console.log(arrProducts);
+                //
                     inquirer.prompt([{
                         name: 'productName',
                         type: 'rawlist',
                         message: 'Please choose the product name you want to buy: ',
                         choices: arrProducts
                     }]).then(function(rawlist) {
+                      var derivedName = rawlist.productName;
+                      var derivedIdx = derivedName.indexOf('::');
+                      var derivedId = derivedName.substring(0,derivedIdx)
                       console.log(rawlist.productName);
+                      console.log(derivedId); // this will feed into the productId search function
                     });
-
-
-                // console.log("Product Name: " + results[0].productName);
-                // console.log("Available: " + results[0].quantityInStock);
-                // console.log("Price: " + results[0].buyPrice);
+                //
+                //
+                // // console.log("Product Name: " + results[0].productName);
+                // // console.log("Available: " + results[0].quantityInStock);
+                // // console.log("Price: " + results[0].buyPrice);
                 connection.end();
             });
           ////
@@ -98,4 +130,5 @@ function start() {
     }) //end then(function)
 
 }
-start();
+// start();
+purchase(112);
