@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/deffractedmind/nodeStore/issues"
   },
-  "homepage": "https://github.com/deffractedmind/nodeStore#readme"
+  "homepage": "https://github.com/deffractedmind/nodeStore#readme",
+  "dependencies": {
+    "console.table": "^0.8.0"
+  }
 }

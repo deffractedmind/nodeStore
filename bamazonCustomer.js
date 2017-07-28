@@ -217,9 +217,10 @@ function pay (buyerId, productId, quantityToBuy, quantityInStock, purchaseDate, 
         // console.log(queryInsOrdDet);
         console.log("order detail created");
       })
-    var queryUpdProd = connection.query('UPDATE PRODUCTS set ?', {
+    var queryUpdProd = connection.query('UPDATE PRODUCTS SET ? WHERE id = ' + productId, {
         quantityInStock: quantityInStock - quantityToBuy
     }, function(err, res) {
+      // console.log(queryUpdProd);
         console.log("quantity in stock adjusted");
 
         if (buyMore) {
