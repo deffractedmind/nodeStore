@@ -26,3 +26,5 @@ manager - can perform the following:
 supervisor - can perform the following:
   <br>1 View Product Sales by Department
   <br>2 Create New Department; sets department status to pending and routes to manager for approval
+
+screenshots: please see https://github.com/deffractedmind/nodeStore/blob/master/bamazonScreenShots.pdf
